@@ -9,16 +9,24 @@
 /* Begin PBXBuildFile section */
 		29E9920E2B5C110700E84193 /* MNoiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E9920D2B5C110700E84193 /* MNoiseApp.swift */; };
 		29E992102B5C110700E84193 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E9920F2B5C110700E84193 /* ContentView.swift */; };
-		29E992122B5C110800E84193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E992112B5C110800E84193 /* Assets.xcassets */; };
 		29E992152B5C110800E84193 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E992142B5C110800E84193 /* Preview Assets.xcassets */; };
+		29E9921C2B5C114600E84193 /* WhiteNoise1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29E9921B2B5C114600E84193 /* WhiteNoise1.wav */; };
+		29E9921E2B5C11FC00E84193 /* AudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E9921D2B5C11FC00E84193 /* AudioPlayerViewModel.swift */; };
+		29E992202B5C153800E84193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E9921F2B5C153800E84193 /* Assets.xcassets */; };
+		29E992232B5C235200E84193 /* Falls1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29E992222B5C235200E84193 /* Falls1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		29E9920A2B5C110700E84193 /* MNoise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MNoise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E9920D2B5C110700E84193 /* MNoiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MNoiseApp.swift; sourceTree = "<group>"; };
 		29E9920F2B5C110700E84193 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		29E992112B5C110800E84193 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29E992142B5C110800E84193 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		29E9921B2B5C114600E84193 /* WhiteNoise1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WhiteNoise1.wav; sourceTree = "<group>"; };
+		29E9921D2B5C11FC00E84193 /* AudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewModel.swift; sourceTree = "<group>"; };
+		29E9921F2B5C153800E84193 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../Downloads/AppIcons/Assets.xcassets; sourceTree = "<group>"; };
+		29E992212B5C183A00E84193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		29E992222B5C235200E84193 /* Falls1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Falls1.wav; sourceTree = "<group>"; };
+		29E992242B5C312700E84193 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +43,7 @@
 		29E992012B5C110700E84193 = {
 			isa = PBXGroup;
 			children = (
+				29E992242B5C312700E84193 /* README.md */,
 				29E9920C2B5C110700E84193 /* MNoise */,
 				29E9920B2B5C110700E84193 /* Products */,
 			);
@@ -51,10 +60,14 @@
 		29E9920C2B5C110700E84193 /* MNoise */ = {
 			isa = PBXGroup;
 			children = (
+				29E992212B5C183A00E84193 /* Info.plist */,
 				29E9920D2B5C110700E84193 /* MNoiseApp.swift */,
 				29E9920F2B5C110700E84193 /* ContentView.swift */,
-				29E992112B5C110800E84193 /* Assets.xcassets */,
+				29E9921F2B5C153800E84193 /* Assets.xcassets */,
+				29E9921B2B5C114600E84193 /* WhiteNoise1.wav */,
+				29E992222B5C235200E84193 /* Falls1.wav */,
 				29E992132B5C110800E84193 /* Preview Content */,
+				29E9921D2B5C11FC00E84193 /* AudioPlayerViewModel.swift */,
 			);
 			path = MNoise;
 			sourceTree = "<group>";
@@ -125,8 +138,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29E9921C2B5C114600E84193 /* WhiteNoise1.wav in Resources */,
+				29E992232B5C235200E84193 /* Falls1.wav in Resources */,
 				29E992152B5C110800E84193 /* Preview Assets.xcassets in Resources */,
-				29E992122B5C110800E84193 /* Assets.xcassets in Resources */,
+				29E992202B5C153800E84193 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29E992102B5C110700E84193 /* ContentView.swift in Sources */,
+				29E9921E2B5C11FC00E84193 /* AudioPlayerViewModel.swift in Sources */,
 				29E9920E2B5C110700E84193 /* MNoiseApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +291,8 @@
 				DEVELOPMENT_TEAM = B22686VAVS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MNoise/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +322,8 @@
 				DEVELOPMENT_TEAM = B22686VAVS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MNoise/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
