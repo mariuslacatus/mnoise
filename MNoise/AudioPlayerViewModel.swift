@@ -5,10 +5,59 @@ import MediaPlayer
 class AudioPlayerViewModel: ObservableObject {
     @Published var isPlaying = false
     private var audioPlayer: AVAudioPlayer?
+    private var audioEngine: AVAudioEngine
+    private var audioPlayerNode: AVAudioPlayerNode
+    private var audioUnitEQ: AVAudioUnitEQ
+    var freqs: [Float] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000]
 
     init() {
+        audioEngine = AVAudioEngine()
+        audioPlayerNode = AVAudioPlayerNode()
+        audioUnitEQ = AVAudioUnitEQ(numberOfBands: 10) // 10-band EQ
+        setupAudioEngine()
         setupAudioPlayer()
         setupNotifications()
+    }
+    
+    private func setupAudioEngine() {
+        // Initialize and attach nodes
+        audioEngine.attach(audioPlayerNode)
+        audioEngine.attach(audioUnitEQ)
+
+        // Connect nodes
+        audioEngine.connect(audioPlayerNode, to: audioUnitEQ, format: nil)
+        audioEngine.connect(audioUnitEQ, to: audioEngine.mainMixerNode, format: nil)
+
+        // Configure EQ bands
+        for i in 0..<audioUnitEQ.bands.count {
+            let band = audioUnitEQ.bands[i]
+            band.filterType = .parametric // Set as required
+            band.frequency = freqs[i]
+            band.bandwidth = 1 // Example value
+            band.gain = 0 // Neutral gain
+            band.bypass = false
+        }
+
+        // Start the engine
+        do {
+            try audioEngine.start()
+        } catch {
+            print("AudioEngine didn't start")
+        }
+    }
+    
+    // Method to set the gain for a specific band
+    func setGain(forBand band: Int, gain: Float) {
+        guard band < audioUnitEQ.bands.count else { return }
+        audioUnitEQ.bands[band].gain = gain
+    }
+    
+    func initEqCurve(gains: [Float]) {
+        guard gains.count == audioUnitEQ.bands.count else { return }
+        
+        for i in 0..<audioUnitEQ.bands.count {
+            audioUnitEQ.bands[i].gain = gains[i]
+        }
     }
     
     private var currentFileName: String = "" {
@@ -52,18 +101,18 @@ class AudioPlayerViewModel: ObservableObject {
     }
 
     func playAudio() {
-        audioPlayer?.play()
+        audioPlayerNode.play()
         isPlaying = true
         setupNowPlayingInfo() // Setup Now Playing Info when audio starts
     }
 
     func stopAudio() {
-        audioPlayer?.stop()
+        audioPlayerNode.pause()
         isPlaying = false
     }
     
     func setVolume(_ volume: Float) {
-        audioPlayer?.volume = (powf(100.0, volume)-1.0)/99.0
+        audioPlayerNode.volume = (powf(100.0, volume)-1.0)/99.0
     }
     
     // Add a method to set the audio file
@@ -74,8 +123,12 @@ class AudioPlayerViewModel: ObservableObject {
             let url = URL(fileURLWithPath: path)
 
             do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.numberOfLoops = -1
+                let audioFile = try AVAudioFile(forReading: url)
+                let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: UInt32(audioFile.length))!
+                try! audioFile.read(into: audioFileBuffer)
+                
+                audioPlayerNode.stop()
+                audioPlayerNode.scheduleBuffer(audioFileBuffer, at: nil, options:.loops, completionHandler: nil)
             } catch {
                 print("Error loading the audio file: \(fileName)")
             }
