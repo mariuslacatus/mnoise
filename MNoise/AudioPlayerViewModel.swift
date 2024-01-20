@@ -62,6 +62,10 @@ class AudioPlayerViewModel: ObservableObject {
         isPlaying = false
     }
     
+    func setVolume(_ volume: Float) {
+        audioPlayer?.volume = volume
+    }
+    
     // Add a method to set the audio file
     func setAudioFile(_ fileName: String) {
         currentFileName = fileName // Set the current file name
@@ -72,6 +76,8 @@ class AudioPlayerViewModel: ObservableObject {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.numberOfLoops = -1
+                setVolume(UserDefaults.standard.float(forKey: "MNVolume") != 0
+                          ? UserDefaults.standard.float(forKey: "MNVolume") : 0.5)
             } catch {
                 print("Error loading the audio file: \(fileName)")
             }

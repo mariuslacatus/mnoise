@@ -2,13 +2,22 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var audioPlayerViewModel = AudioPlayerViewModel()
-    @State private var selectedSound: String = UserDefaults.standard.string(forKey: "MNSelectedSound") ?? "WhiteNoise1"
+    let sounds: [String] = ["WhiteNoise1", "Falls1"]
+    @State private var selectedSound: String
+    @State private var volume: Float = UserDefaults.standard.float(forKey: "MNVolume") != 0 
+        ? UserDefaults.standard.float(forKey: "MNVolume") : 0.5
 
+    
+    init() {
+        selectedSound = UserDefaults.standard.string(forKey: "MNSelectedSound") ?? sounds[0]
+    }
+    
     var body: some View {
         VStack(spacing: 40) {
             Picker("Select Sound", selection: $selectedSound) {
-                Text("WhiteNoise1").tag("WhiteNoise1")
-                Text("Falls1").tag("Falls1")
+                ForEach(sounds, id: \.self) {
+                    Text($0).tag($0)
+                }
             }
             .pickerStyle(MenuPickerStyle())
             .onChange(of: selectedSound) {
@@ -22,6 +31,12 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 150, height: 150)
             }
+            
+            Slider(value: $volume, in: 0...1, step: 0.01)
+                .onChange(of: volume) {
+                    audioPlayerViewModel.setVolume((powf(100.0, volume)-1.0)/99.0)
+                    UserDefaults.standard.set((powf(100.0, volume)-1.0)/99.0, forKey: "MNVolume") // Save the volume
+                }
         }
         .padding()
         .onAppear {
