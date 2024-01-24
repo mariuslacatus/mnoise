@@ -96,6 +96,11 @@ class AudioPlayerViewModel: ObservableObject {
             stopAudio()
         } else if type == .ended {
             // Interruption ended, resume audio
+            do {
+                try audioEngine.start()
+            } catch {
+                print("AudioEngine didn't start")
+            }
             playAudio()
         }
     }
